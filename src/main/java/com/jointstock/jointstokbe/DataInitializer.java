@@ -18,7 +18,7 @@ public class DataInitializer {
      * @return
      */
     @Transactional("userTransactionManager")
-    public User.EntityId initializeUser() {
-        return users.save(new User("John", "Smith")).getId();
+    public void initializeUser() {
+        users.save(new User("John", "Smith"));
     }
 }

@@ -27,6 +27,6 @@ public class Application {
 	public void init() {
 
 		//AbstractEntity.EntityId customerId = initializer.initializeUser();
-		User.EntityId userId =   initializer.initializeUser();
+		initializer.initializeUser();
 	}
 }

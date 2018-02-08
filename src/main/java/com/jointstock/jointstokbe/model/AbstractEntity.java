@@ -1,39 +1,33 @@
 package com.jointstock.jointstokbe.model;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import javax.persistence.*;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.Getter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @MappedSuperclass
 @EqualsAndHashCode(of = "id")
+@Getter
+@EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity {
     @Id
     @GeneratedValue protected Long id;
 
-    @CreatedDate
-    protected LocalDateTime createdDate;
-    @LastModifiedDate
-    protected LocalDateTime modifiedDate;
+    protected Timestamp createdDate;
+    protected Timestamp modifiedDate;
+    @Version
+    private long version;
 
-    public EntityId getId() {
-        return new EntityId(id);
+    @PrePersist
+    public void prePersist() {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        this.createdDate = now;
+        this.modifiedDate = now;
     }
 
-    @Value
-    @Embeddable
-    @RequiredArgsConstructor
-    @SuppressWarnings("serial")
-    public static class EntityId implements Serializable {
-
-        private final Long entityId;
-
-        EntityId() {
-            this.entityId = null;
-        }
+    @PreUpdate
+    public void preUpdate() {
+        this.modifiedDate = new Timestamp(System.currentTimeMillis());
     }
 }

@@ -8,5 +8,4 @@ import java.util.stream.Stream;
 public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findById(Long id);
     Optional<User> findByLastname(String lastname);
-    Stream<User> findAllBy();
 }

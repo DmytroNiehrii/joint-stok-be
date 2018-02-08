@@ -41,7 +41,7 @@ public class Config {
 
         return new EmbeddedDatabaseBuilder().//
                 setType(EmbeddedDatabaseType.HSQL).//
-                setName("user").//
+                setName("controllers").//
                 build();
     }
 }
