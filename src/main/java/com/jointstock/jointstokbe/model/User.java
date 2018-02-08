@@ -11,40 +11,10 @@ import java.io.Serializable;
 @Entity
 @Getter
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor
-public class User /*extends AbstractEntity*/ {
-    @Id
-    @GeneratedValue Long id;
-    public EntityId getId() {
-        return new EntityId(id);
-    }
-
-    public User(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
-
-    @Value
-    @Embeddable
-    @RequiredArgsConstructor
-    @SuppressWarnings("serial")
-    public static class EntityId implements Serializable {
-
-        private final Long customerId;
-
-        EntityId() {
-            this.customerId = null;
-        }
-    }
-
+public class User extends AbstractEntity {
     String firstname, lastname;
-
-
-    protected User() {
-        this.firstname = null;
-        this.lastname = null;
-    }
-
 
 }
 
