@@ -12,6 +12,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 @Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "userEntityManagerFactory",
         transactionManagerRef = "userTransactionManager")
@@ -40,8 +42,20 @@ public class Config {
     DataSource userDataSource() {
 
         return new EmbeddedDatabaseBuilder().//
-                setType(EmbeddedDatabaseType.HSQL).//
+                setType( EmbeddedDatabaseType.HSQL).//
                 setName("controllers").//
                 build();
     }
+
+    /*@Bean
+    DataSource postgresDataSource() {
+
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/jointstack");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("merlin79");
+
+        return dataSource;
+    }*/
 }

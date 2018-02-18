@@ -9,14 +9,20 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @RestController
 @Transactional(transactionManager = "userTransactionManager")
+@RequestMapping("/api")
+@CrossOrigin
 public class UserController {
 
     private static final String TEMPLATE = "Hello, %s!";
@@ -25,16 +31,15 @@ public class UserController {
     UserRepository repository;
 
     @RequestMapping("/user")
-    public HttpEntity<UserResource> user(
-            @RequestParam(value = "name", required = false) String name) {
+    public HttpEntity<UserResource> user() {
+        List<User> users = new ArrayList<>();
+        users = (ArrayList)repository.findAll();
 
-        //UserResource user = new UserResource(name);
-        Iterable<User> users = repository.findAll();
         UserResource userResource = new UserResource(users);
-
-
-        userResource.add(linkTo(methodOn(UserController.class).user(name)).withSelfRel());
+        userResource.add(linkTo(methodOn(UserController.class).user()).withSelfRel());
 
         return new ResponseEntity<UserResource>(userResource, HttpStatus.OK);
     }
+
+
 }
