@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @RestController
-@Transactional(transactionManager = "userTransactionManager")
+@Transactional(transactionManager = "transactionManager")
 @RequestMapping("/api")
 @CrossOrigin
 public class UserController {

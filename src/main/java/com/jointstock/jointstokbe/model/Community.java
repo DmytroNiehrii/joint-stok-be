@@ -19,7 +19,7 @@ public class Community extends AbstractEntity {
     User createdBy;
 
     @ManyToMany
-    @JsonIgnore
+    //@JsonIgnore
     List<User> members = new ArrayList<>();
 
     public Community(String name, User createdBy) {

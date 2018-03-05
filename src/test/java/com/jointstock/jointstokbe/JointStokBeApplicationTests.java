@@ -18,10 +18,10 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional(transactionManager = "userTransactionManager")
+@Transactional(transactionManager = "transactionManager")
 public class JointStokBeApplicationTests {
 	@Autowired UserRepository repository;
-	@Autowired @Qualifier("userEntityManagerFactory") EntityManager em;
+	@Autowired @Qualifier("entityManagerFactory") EntityManager em;
 
 	@Test
 	public void findsCustomerByLastname() {

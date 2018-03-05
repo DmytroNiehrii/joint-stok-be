@@ -16,7 +16,7 @@ public class DataInitializer {
     private final @NonNull
     CommunityRepository groups;
 
-    @Transactional("userTransactionManager")
+    @Transactional("transactionManager")
     public void initializeUser() {
         User user1 = new User("John", "Smith");
         users.save(user1);

@@ -12,34 +12,40 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "userEntityManagerFactory",
-        transactionManagerRef = "userTransactionManager")
+@EnableTransactionManagement
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
 public class Config {
     @Bean
-    PlatformTransactionManager userTransactionManager() {
-        return new JpaTransactionManager(userEntityManagerFactory().getObject());
+    PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager(entityManagerFactory().getObject());
+        transactionManager.setJpaProperties(hibernateProperties());
+        return transactionManager;
     }
 
     @Bean
-    LocalContainerEntityManagerFactoryBean userEntityManagerFactory() {
+    LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setGenerateDdl(true);
+        //jpaVendorAdapter.setShowSql(true);
 
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 
-        factoryBean.setDataSource(userDataSource());
+        factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
         factoryBean.setPackagesToScan(Config.class.getPackage().getName());
+        factoryBean.setJpaProperties(hibernateProperties());
 
         return factoryBean;
     }
 
     @Bean
-    DataSource userDataSource() {
+    DataSource dataSource() {
 
         return new EmbeddedDatabaseBuilder().//
                 setType( EmbeddedDatabaseType.HSQL).//
@@ -47,6 +53,12 @@ public class Config {
                 build();
     }
 
+    protected Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.format_sql", true);
+        properties.put("hibernate.enable_lazy_load_no_trans", true);
+        return properties;
+    }
     /*@Bean
     DataSource postgresDataSource() {
 
