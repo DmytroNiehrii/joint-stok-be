@@ -1,7 +1,7 @@
 package com.jointstock.jointstokbe;
 
 import com.jointstock.jointstokbe.model.User;
-import com.jointstock.jointstokbe.model.UserRepository;
+import com.jointstock.jointstokbe.model.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;

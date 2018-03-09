@@ -19,7 +19,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
-public class Config {
+public class DBConfig {
     @Bean
     PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager(entityManagerFactory().getObject());
@@ -38,7 +38,7 @@ public class Config {
 
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        factoryBean.setPackagesToScan(Config.class.getPackage().getName());
+        factoryBean.setPackagesToScan(DBConfig.class.getPackage().getName());
         factoryBean.setJpaProperties(hibernateProperties());
 
         return factoryBean;

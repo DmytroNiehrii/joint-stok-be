@@ -1,9 +1,9 @@
 package com.jointstock.jointstokbe;
 
 import com.jointstock.jointstokbe.model.Community;
-import com.jointstock.jointstokbe.model.CommunityRepository;
+import com.jointstock.jointstokbe.model.repository.CommunityRepository;
 import com.jointstock.jointstokbe.model.User;
-import com.jointstock.jointstokbe.model.UserRepository;
+import com.jointstock.jointstokbe.model.repository.UserRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.NonNull;

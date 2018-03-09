@@ -1,5 +1,6 @@
-package com.jointstock.jointstokbe.model;
+package com.jointstock.jointstokbe.model.repository;
 
+import com.jointstock.jointstokbe.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

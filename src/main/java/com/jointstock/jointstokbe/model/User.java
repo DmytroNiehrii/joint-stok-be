@@ -23,5 +23,9 @@ public class User extends AbstractEntity {
         this.firstname = firstname;
         this.lastname = lastname;
     }
+
+    public int getCommunityCount() {
+        return communities.size();
+    }
 }
 

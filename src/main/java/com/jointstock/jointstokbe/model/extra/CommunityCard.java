@@ -1,6 +1,8 @@
-package com.jointstock.jointstokbe.model;
+package com.jointstock.jointstokbe.model.extra;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jointstock.jointstokbe.model.Community;
+import com.jointstock.jointstokbe.model.User;
 
 import javax.persistence.Version;
 import java.sql.Timestamp;
@@ -10,13 +12,6 @@ import java.util.List;
 public class CommunityCard {
     @JsonIgnore
     Community community;
-
-    /*Long id;
-    Timestamp createdDate;
-    Timestamp modifiedDate;
-    long version;
-    String name, description;
-    List<User> members = new ArrayList<>();*/
 
     public CommunityCard(Community community) {
         this.community = community;
@@ -45,4 +40,6 @@ public class CommunityCard {
     public List<User> getMembers() {
         return community.getMembers();
     }
+
+    public int getMemberCount() {return community.getMemberCount();}
 }
