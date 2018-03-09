@@ -26,6 +26,7 @@ public class DataInitializer {
         users.save(user3);
 
         Community community1 = new Community("Car washing station", user1);
+        community1.setDescription("Dummy description for Car washing station");
         community1.getMembers().add(user2);
         groups.save(community1);
 

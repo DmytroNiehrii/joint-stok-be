@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @RequestMapping("/user/{id}")
-    public HttpEntity<UserCard> getCommunityById(@PathVariable Long id) {
+    public HttpEntity<UserCard> getUserById(@PathVariable Long id) {
         Optional<User> user = repository.findById(id);
         return new ResponseEntity(conversionService.convert(user.get(), UserCard.class), HttpStatus.OK);
     }
