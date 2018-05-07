@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -21,6 +23,8 @@ import java.util.Optional;
 public class CommunityController {
     @Autowired
     CommunityRepository repository;
+    @PersistenceContext
+    private EntityManager em;
     @Autowired
     ConversionService conversionService;
 
@@ -28,8 +32,18 @@ public class CommunityController {
     public HttpEntity<Iterable<Community>> community() {
         Iterable<Community> communities = new ArrayList<>();
         communities = repository.findAll();
-
         return new ResponseEntity(communities, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/community/save", method = RequestMethod.POST)
+    @Transactional
+    public @ResponseBody Community saveCommunity(@RequestBody Community entity) {
+        /*Community community = repository.findById(updatedEntity.getId()).get();
+        community.setDescription(updatedEntity.getDescription());
+        return repository.save(community);*/
+        return repository.save(entity);
+
+
     }
 
     @RequestMapping("/community/{id}")
