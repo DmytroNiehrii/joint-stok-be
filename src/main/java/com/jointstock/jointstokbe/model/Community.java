@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(exclude = "members")
 public class Community extends AbstractEntity {
-    String name, description;
+    volatile String name, description;
     @OneToOne
     User createdBy;
 

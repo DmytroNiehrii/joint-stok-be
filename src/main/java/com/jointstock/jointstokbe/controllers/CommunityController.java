@@ -36,14 +36,11 @@ public class CommunityController {
     }
 
     @RequestMapping(value="/community/save", method = RequestMethod.POST)
-    @Transactional
-    public @ResponseBody Community saveCommunity(@RequestBody Community entity) {
-        /*Community community = repository.findById(updatedEntity.getId()).get();
-        community.setDescription(updatedEntity.getDescription());
-        return repository.save(community);*/
-        return repository.save(entity);
+    public Community saveCommunity(@RequestBody Community entity) {
+        Community community = repository.findById(entity.getId()).get();
+        community.setDescription(entity.getDescription());
 
-
+        return repository.save(community);
     }
 
     @RequestMapping("/community/{id}")

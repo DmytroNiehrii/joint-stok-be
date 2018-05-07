@@ -12,12 +12,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity {
     @Id
-    @GeneratedValue protected Long id;
+    @GeneratedValue volatile protected Long id;
 
-    protected Timestamp createdDate;
-    protected Timestamp modifiedDate;
+    volatile protected Timestamp createdDate;
+    volatile protected Timestamp modifiedDate;
     @Version
-    private long version;
+    volatile private long version;
 
     @PrePersist
     public void prePersist() {
